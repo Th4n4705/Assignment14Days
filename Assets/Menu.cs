@@ -3,13 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using OOP;
+using System.Diagnostics;
 
 public enum MenuChoices { Node, Sound, Character, Condition }
 public enum NodeType { SNode, LNode }
 
 public class Menu : MonoBehaviour
 {
+    #region JsonParser
+    // Start is called before the first frame update
+    /*  void Start()
+      {
+          string filePath = @"Assets/Data/main.Json";
+          if (!File.Exists(filePath))
+              return;
+          string jsonString = File.ReadAllText(filePath);
+          Root myDeserializedClass = new Root();
+          myDeserializedClass = JsonUtility.FromJson<Root>(jsonString);
 
+          Debug.Log("-------------------");
+          Debug.Log(myDeserializedClass.mainName);
+          Debug.Log("-------------------");
+          ShowAllNode(myDeserializedClass);
+          // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+          //JsonConvert.DeserializeObject<List<Root>>(jsonString);
+      }*/
+    #endregion
 
     [Header("MenU")]
     [SerializeField] MenuChoices menuChoices;
@@ -132,10 +151,10 @@ public class Menu : MonoBehaviour
                     nodeList.Add(nodeToList);
                     print("\n <color=#00FF00> Node Added Successfully! </color>" + node.nodeId.ToString());
                 }
-                if (GUILayout.Button("Delete Node"))
+                if (GUILayout.Button("Edit Node"))
                 {
                 }
-                if (GUILayout.Button("Remove Node"))
+                if (GUILayout.Button("Delete Node"))
                 {
                     RemoveNode(node.nodeId, nodeList);
                 }
@@ -192,10 +211,10 @@ public class Menu : MonoBehaviour
 
                     conditionList.Add(ConditionItem);
                 }
-                if (GUILayout.Button("Delete Condition"))
+                if (GUILayout.Button("Edit Condition"))
                 {
                 }
-                if (GUILayout.Button("Remove Condition"))
+                if (GUILayout.Button("Delete Condition"))
                 {
                     RemoveCondition(condition.conditionType, conditionList);
                 }
@@ -241,10 +260,10 @@ public class Menu : MonoBehaviour
 
                     characterList.Add(characterItem);
                 }
-                if (GUILayout.Button("Delete Character"))
+                if (GUILayout.Button("Edit Character"))
                 {
                 }
-                if (GUILayout.Button("Remove Character"))
+                if (GUILayout.Button("Delete Character"))
                 {
                     RemoveCharacter(character.id, characterList);
                 }
@@ -328,10 +347,10 @@ public class Menu : MonoBehaviour
 
                     soundList.Add(soundItem);
                 }
-                if (GUILayout.Button("Delete Sound"))
+                if (GUILayout.Button("Edit Sound"))
                 {
                 }
-                if (GUILayout.Button("Remove Sound"))
+                if (GUILayout.Button("Delete Sound"))
                 {
                     RemoveSound(sound.objectId, soundList);
                 }
