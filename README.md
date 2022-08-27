@@ -4,4 +4,4 @@
 
 -create a game object
 
--add menu.cs as a component
+-add menu.cs as a component to the game object
