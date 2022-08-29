@@ -153,6 +153,40 @@ public class Menu : MonoBehaviour
                 }
                 if (GUILayout.Button("Edit Node"))
                 {
+                    foreach (Node nodeItem in nodeList)
+                    {
+                        if (nodeItem.nodeId == node.nodeId)
+                        {
+                            nodeList.Remove(nodeItem);
+                            Node newNodeItem = new Node();
+                            if (nodeType == NodeType.SNode)
+                            {
+                                List<int> pos = new List<int>();
+                                List<int> rot = new List<int>();
+
+                                pos.Add(positionX);
+                                pos.Add(positionY);
+                                pos.Add(positionZ);
+                                origin.position = pos;
+
+                                rot.Add(rotationX);
+                                rot.Add(rotationY);
+                                rot.Add(rotationZ);
+                                origin.position = rot;
+
+                                newNodeItem.origin = origin;
+                                newNodeItem.startTime = node.startTime;
+                                newNodeItem.endTime = node.endTime;
+                            }
+                            newNodeItem.nodeId = node.nodeId;
+                            newNodeItem.name = node.name;
+                            newNodeItem.nextNodeID = node.nextNodeID;
+                            newNodeItem.nodeType = node.nodeType;
+                            nodeList.Add(newNodeItem);
+                            print("\n <color=#00FF00> Node modified Successfully! </color>" + node.nodeId.ToString());
+                            break;
+                        }
+                    }
                 }
                 if (GUILayout.Button("Delete Node"))
                 {
@@ -204,15 +238,29 @@ public class Menu : MonoBehaviour
                 condition.conditionType = EditorGUILayout.TextField(condition.conditionType);
                 if (GUILayout.Button("Add Condition"))
                 {
-                    OOP.Condition ConditionItem = new OOP.Condition();
+                    Condition ConditionItem = new Condition();
                     ConditionItem.@event = RetrieveEvent(eventIdToCheck, eventList);
                     ConditionItem.conditionType = condition.conditionType;
                     ConditionItem.nodeId = condition.nodeId;
 
                     conditionList.Add(ConditionItem);
+                    print("\n <color=#00FF00> Condition Added Successfully! </color>" + condition.conditionType);
                 }
                 if (GUILayout.Button("Edit Condition"))
                 {
+                    foreach (Condition conditionItem in conditionList)
+                        if (conditionItem.conditionType == condition.conditionType)
+                        {
+                            conditionList.Remove(conditionItem);
+                            Condition newConditionItem = new Condition();
+                            newConditionItem.@event = RetrieveEvent(eventIdToCheck, eventList);
+                            newConditionItem.conditionType = condition.conditionType;
+                            newConditionItem.nodeId = condition.nodeId;
+
+                            conditionList.Add(newConditionItem);
+                            print("\n <color=#00FF00> Condition Edited Successfully! </color>" + condition.conditionType);
+                            break;
+                        }
                 }
                 if (GUILayout.Button("Delete Condition"))
                 {
@@ -259,9 +307,30 @@ public class Menu : MonoBehaviour
                     characterItem.model = character.model;
 
                     characterList.Add(characterItem);
+                    print("\n <color=#00FF00> Character Added Successfully! </color>" + character.id);
                 }
                 if (GUILayout.Button("Edit Character"))
                 {
+                    foreach (Character characterItem in characterList)
+                        if (characterItem.id == character.id)
+                        {
+                            characterList.Remove(characterItem);
+                            Character newCharacterItem = new Character();
+
+                            newCharacterItem.id = character.id;
+
+                            newCharacterItem.name = character.name;
+
+                            newCharacterItem.startTime = character.startTime;
+
+                            newCharacterItem.endTime = character.endTime;
+
+                            newCharacterItem.model = character.model;
+
+                            characterList.Add(newCharacterItem);
+                            print("\n <color=#00FF00> Character Edited Successfully! </color>" + character.id);
+                            break;
+                        }
                 }
                 if (GUILayout.Button("Delete Character"))
                 {
@@ -346,9 +415,45 @@ public class Menu : MonoBehaviour
                     soundItem.endTime = sound.endTime;
 
                     soundList.Add(soundItem);
+                    print("\n <color=#00FF00> Sound Added Successfully! </color>" + sound.objectId);
                 }
                 if (GUILayout.Button("Edit Sound"))
                 {
+                    foreach (Sound soundItem in soundList)
+                        if (soundItem.objectId == sound.objectId)
+                        {
+                            soundList.Remove(soundItem);
+
+                            Sound newSoundItem = new Sound();
+
+                            newSoundItem.objectId = sound.objectId;
+
+                            newSoundItem.objectName = sound.objectName;
+
+                            newSoundItem.audioType = sound.audioType;
+
+                            newSoundItem.audioUrl = sound.audioUrl;
+
+                            newSoundItem.loop = sound.loop;
+
+                            newSoundItem.volume = sound.volume;
+
+                            newSoundItem.pitch = sound.pitch;
+
+                            newSoundItem.spatialMode = sound.spatialMode;
+
+                            newSoundItem.minDistance = sound.minDistance;
+
+                            newSoundItem.maxDistance = sound.maxDistance;
+
+                            newSoundItem.startTime = sound.startTime;
+
+                            newSoundItem.endTime = sound.endTime;
+
+                            soundList.Add(soundItem);
+                            print("\n <color=#00FF00> Sound Edited Successfully! </color>" + sound.objectId);
+                            break;
+                        }
                 }
                 if (GUILayout.Button("Delete Sound"))
                 {
@@ -367,6 +472,7 @@ public class Menu : MonoBehaviour
     }
     #endregion
 
+    #region Methodes
     #region Nodes Methodes
     public static void ListAllNodesWithSpecificType(List<Node> nodeList, NodeType nodeType)
     {
@@ -407,6 +513,7 @@ public class Menu : MonoBehaviour
             if (nodeItem.nodeId == id)
             {
                 list.Remove(nodeItem);
+                print("\n <color=#00FF00> Node Deleted Successfully! </color>" + sound.objectId);
                 break;
             }
         }
@@ -436,6 +543,7 @@ public class Menu : MonoBehaviour
             if (conditionItem.conditionType == conditionType)
             { 
                 list.Remove(conditionItem);
+                print("\n <color=#00FF00> Condition Deleted Successfully! </color>" + sound.objectId);
                 break;
             }
     }
@@ -459,7 +567,8 @@ public class Menu : MonoBehaviour
         foreach (Sound soundItem in list)
             if (soundItem.objectId == SoundId)
             {
-                list.Remove(soundItem);
+                list.Remove(soundItem); 
+                print("\n <color=#00FF00> Sound Deleted Successfully! </color>" + sound.objectId);
                 break;
             }
     }
@@ -481,9 +590,11 @@ public class Menu : MonoBehaviour
             if (characterItem.id == CharacterId)
             {
                 list.Remove(characterItem);
+                print("\n <color=#00FF00> Character Deleted Successfully! </color>" + sound.objectId);
                 break;
             }
     }
+    #endregion
     #endregion
 
 }
