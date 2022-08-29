@@ -1,7 +1,7 @@
 # Assignment14Days
 
--create a 3d project 
+-Create a 3d project 
 
--create a game object
+-Create a game object
 
--add menu.cs as a component to the game object
+-Add menu.cs as a component to the game object
